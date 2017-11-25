@@ -2,8 +2,13 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-   //res.render('index', { title: 'Express'});
+router.get('/herokuConnect', function(req, res, next) {
+   res.render('index', { title: 'Express'});
+});
+
+
+router.get('/mLabConnect', function(req, res, next) {
+
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://r39rivera:Holleriv12@ds251245.mlab.com:51245/heroku_1jbzqctc";
 
@@ -19,7 +24,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res){
-    console.log(req._SESSION);
+    console.log(req.param_SESSION);
 });
 
 /*

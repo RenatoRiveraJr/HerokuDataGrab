@@ -24,7 +24,7 @@ router.get('/mLabConnect', function(req, res, next) {
 });
 
 router.post('/', function(req, res){
-    res.send('user ' + req.param('session'));
+    res.send('user ' + req.param('username'));
 });
 
 /*

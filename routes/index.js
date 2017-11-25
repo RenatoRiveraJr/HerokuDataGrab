@@ -7,7 +7,6 @@ router.get('/', function(req, res, next) {
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://r39rivera:Holleriv12@ds251245.mlab.com:51245/heroku_1jbzqctc";
 
-
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         db.collection("ORDERS").find({name: "Renato"}).toArray(function (err, docs) {
@@ -18,6 +17,12 @@ router.get('/', function(req, res, next) {
         });
     });
 });
+
+router.post('/', function(req, res){
+    console.log(req._SESSION);
+});
+
+/*
 router.post('/', function(req, res){
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://r39rivera:Holleriv12@ds251245.mlab.com:51245/heroku_1jbzqctc";
@@ -32,7 +37,6 @@ router.post('/', function(req, res){
             });
         });
     });
-});
-
+});*/
 
 module.exports = router;

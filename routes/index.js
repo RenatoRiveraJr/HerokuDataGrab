@@ -29,7 +29,7 @@ router.post('/', function(req, res){
     var string = "";
     for( var i = 0; i < count; i++)
         string += req.param('prodName' + count);
-    res.send("Hey! " + string);
+    res.send("Hey! " + req.param('prodName0'));
 });
 
 /*

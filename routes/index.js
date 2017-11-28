@@ -24,7 +24,7 @@ router.get('/mLabConnect', function(req, res, next) {
 });
 
 router.post('/', function(req, res){
-    res.render('index', { title: 'Express'});
+    //res.render('index', { title: 'Express'});
     var count = req.param('aggCount');
     var string = "";
     for( var i = 0; i < count; i++)

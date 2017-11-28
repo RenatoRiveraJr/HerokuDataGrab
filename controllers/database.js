@@ -6,11 +6,13 @@ var url = "mongodb://r39rivera:Holleriv12@ds251245.mlab.com:51245/heroku_1jbzqct
 
 module.exports.storeData =  function (request, response) {
 
-    var CUSTOMERS = db.collection('CUSTOMERS');
+
     var customerID = Math.floor((Math.random() * 1000000000000) + 1);
 
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
+
+        var CUSTOMERS = db.collection('CUSTOMERS');
 
         var customerdata = {
             _id: customerID,
@@ -30,7 +32,6 @@ module.exports.storeData =  function (request, response) {
             } else
                 response.send("Success");
         });
-
         response.send("Nothing happened");
 
         /*db.collection('ORDERS').find().toArray(function(err, docs) {

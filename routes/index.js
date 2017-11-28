@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var ControllerDatabase = require('../controllers/database');
 /* GET home page. */
-router.get('/herokuConnect', function(req, res, next) {
+router.post('/herokuConnect', function(req, res, next) {
    res.render('index', { title: 'Express'});
 });
 

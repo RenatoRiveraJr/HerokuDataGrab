@@ -63,10 +63,10 @@ module.exports.storeData =  function (request, response) {
         //Unwrapping my cart items
         for(var i = 0 ; i < count; i++){
             var item = {}; //empty object
-            item['prodName' + i] = request.param('prodName' + i);  //create key-val pair from paramaters
+            item['prodName' + i] = request.param('prodName' + i);  //create key-val pair from parameters
             item['prodCost' + i] = request.param('prodCost' + i);
             item['prodQuant' + i] = request.param('prodQuant' + i);
-            productVector.push(item);
+            productVector.push(item); //push document into array
         }
 
         var orderdata = {
@@ -78,44 +78,38 @@ module.exports.storeData =  function (request, response) {
             ORDER_TOTAL: request.param('total')
         };
 
-        ORDERS.update(
-            { _id: customerID },
-            { $push: { PRODUCT_VECTOR: item } }
-        )
-        
         //Insert into customers collection
         CUSTOMERS.insertOne(customerdata, function (err, result) {
             if (err) {
+                response.render('storeData', { status1: 'Order NOT Successful'});
                 throw err;
-                response.send("Nope");
             }
         });
 
         //Insert into billing collection
         BILLING.insertOne(billingdata, function (err, result) {
             if (err) {
+                response.render('storeData', { status1: 'Order NOT Successful'});
                 throw err;
-                response.send("Nope");
             }
         });
 
         //Insert into shipping collection
         SHIPPING.insertOne(shippingdata, function (err, result) {
             if (err) {
+                response.render('storeData', { status1: 'Order NOT Successful'});
                 throw err;
-                response.send("Nope");
             }
         });
 
         //Insert into order collection
         ORDERS.insertOne(orderdata,function (err, result) {
             if (err) {
+                response.render('storeData', { status1: 'Order NOT Successful'});
                 throw err;
-                response.send("Nope");
             }
         });
-
-        response.send("Success");
+        response.render('storeData', { status1: 'Order Successful'});
 
     });
 };

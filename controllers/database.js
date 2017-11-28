@@ -24,8 +24,14 @@ module.exports.storeData =  function (request, response) {
         };
 
         CUSTOMERS.insertOne(customerdata, function (err, result) {
-            if (err) throw err;
+            if (err) {
+                throw err;
+                response.send("Nope");
+            } else
+                response.send("Success");
         });
+
+        response.send("Nothing happened");
 
         /*db.collection('ORDERS').find().toArray(function(err, docs) {
             response.render('storeData', {results: docs});

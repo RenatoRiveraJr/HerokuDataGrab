@@ -10,7 +10,7 @@ module.exports.storeData =  function (request, response) {
     var customerID = Math.floor((Math.random() * 1000000000000) + 1);
     var billingID = Math.floor((Math.random() * 1000000000000) + 1);
     var shippingID = Math.floor((Math.random() * 1000000000000) + 1);
-    var orderID = Math.floor((Math.random() * 1000000000000) + 1);
+    //var orderID = Math.floor((Math.random() * 1000000000000) + 1);
 
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
@@ -68,16 +68,21 @@ module.exports.storeData =  function (request, response) {
             item['prodQuant' + i] = request.param('prodQuant' + i);
             productVector.push(item);
         }
+
         var orderdata = {
-            id: orderID,
             CUSTOMER_ID: customerID,
             BILLING_ID: billingID,
             SHIPPING_ID: shippingID,
             DATE: jsonDate,
             PRODUCT_VECTOR: productVector,
-            ORDER_TOTAL: request.param('inputCity')
+            ORDER_TOTAL: request.param('total')
         };
 
+        ORDERS.update(
+            { _id: customerID },
+            { $push: { PRODUCT_VECTOR: item } }
+        )
+        
         //Insert into customers collection
         CUSTOMERS.insertOne(customerdata, function (err, result) {
             if (err) {
@@ -102,6 +107,7 @@ module.exports.storeData =  function (request, response) {
             }
         });
 
+        //Insert into order collection
         ORDERS.insertOne(orderdata,function (err, result) {
             if (err) {
                 throw err;

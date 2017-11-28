@@ -28,7 +28,7 @@ router.post('/', function(req, res){
     var count = req.param('aggCount');
     var string = "";
     for( var i = 0; i < count; i++)
-        string += req.param('prodName' + count + ' ');
+        string += req.param('prodName' + count);
     res.send("Hey! " + string);
 });
 

@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+var ControllerDatabase = require('../controllers/database');
 /* GET home page. */
 router.get('/herokuConnect', function(req, res, next) {
    res.render('index', { title: 'Express'});
@@ -23,14 +23,7 @@ router.get('/mLabConnect', function(req, res, next) {
     });
 });
 
-router.post('/', function(req, res){
-    //res.render('index', { title: 'Express'});
-    var count = req.param('aggCount');
-    var string = "";
-    for( var i = 0; i < count; i++)
-        string += req.param('prodName' + i);
-    res.send("Hey! " + string);
-});
+router.post('/storeData', ControllerDatabase.storeData);
 
 /*
 router.post('/', function(req, res){
